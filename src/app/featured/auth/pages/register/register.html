@@ -1,0 +1,19 @@
+<section class="flex h-screen w-full bg-primary-300">
+    <div class="relative flex-[3]">
+        <div class="absolute z-[5] inset-72 w-[332px] h-[332px] flex-shrink-0 rounded-full bg-bg-100 blur-[250px]"></div>
+        <div class="absolute z-[5] top-[50%] left-[50%] w-[332px] h-[332px] flex-shrink-0 rounded-full bg-bg-100 blur-[250px]"></div>
+        @defer () {
+            <img src="/images/background.webp" alt="Imagen de fondo" class="relative z-10  object-cover" />
+        }@placeholder{
+            <div class="w-full h-screen"></div>
+        }
+    </div>
+    <div class="flex-[2] z-[6]">
+        <app-form-register 
+            [loading]="loading() || loadingSocial()" 
+            [errorResponse]="errorResponse()"
+            (authClick)="handleSocialAuth()" 
+            (dataWithCredentials)="handleAuthData($event)"
+        />
+    </div>
+</section>

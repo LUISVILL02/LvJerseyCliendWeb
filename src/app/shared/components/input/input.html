@@ -1,0 +1,20 @@
+
+<input 
+    [disabled]="disable()"
+    (input)="onInput($event)"
+    (blur)="onBlur()"
+    [type]="type()" 
+    [value]="value()"
+    [placeholder]="placeHolder()" 
+    class="rounded-[10px] border-[1px] px-[10px] py-[14px] text-[13px] text-text-100 dark:text-text-200-dark font-normal 
+            placeholder:text-[13px] placeholder:text-accent-100 placeholder:dark:text-accent-100-dark
+            focus:outline-none focus:ring-0"
+    [class]="inputHeight() + ' ' +  inputWidth() + (error() ? ' border-red-400' : ' border-border dark:border-border-dark focus:border-[#3b82f6]') + ' ' +
+    (disable() ? 'bg-background' : 'bg-bg-100 dark:bg-bg-100-dark')"
+    [class.cursor-not-allowed]="disable()"
+/>
+@if (error()) {
+    <div class="text-red-400 text-[12px]">
+        {{error()}}
+    </div>
+}

@@ -1,1 +1,46 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+
+/* Tailwind v4 Theme Configuration */
+@theme {
+  /* Colors - Light theme (default) */
+  --color-primary: #ffdf20;
+  --color-primary-100: #ffd700;
+  --color-primary-200: #ddb900;
+  --color-primary-300: #ffe662;
+  --color-primary-500: #FFEC8A;
+  --color-primary-600: #fff8d6;
+  
+  --color-accent-100: #c0c0c0;
+  --color-accent-200: #626262;
+  
+  --color-text-100: #333333;
+  --color-text-200: #5c5c5c;
+  
+  --color-bg-100: #ffffff;
+  --color-bg-200: #f5f5f5;
+  --color-bg-300: #cccccc;
+  --color-border: #e9e9e9;
+  
+  --color-favorite: #ff3f3f;
+  --color-error: #ff1717;
+  --color-error-100: #ff17171a;
+  --color-warning: #ffcf21;
+  --color-warning-100: #ffcf211a;
+  --color-success: #00cd6a;
+  --color-success-100: #00ff841a;
+}
+
+
+ @theme dark {
+    --color-accent-100-dark: #3a3a3a;
+    --color-accent-200-dark: #bbbbbb;
+    --color-text-100-dark: #eeeeee;
+    --color-text-200-dark: #cccccc;
+    --color-bg-100-dark: #1a1a1a;
+    --color-bg-200-dark: #1e1e1e;
+    --color-bg-300-dark: #2a2a2a;
+    --color-border-dark: #2f2f2f;
+  }
+
+  @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));

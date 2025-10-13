@@ -1,12 +1,12 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { LayoutComponent } from "./shared/layout/layout";
+import { ThemeService } from './shared/theme/theme';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [LayoutComponent],
   templateUrl: './app.html',
-  styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('LVJersey-client');
+  readonly themeService = inject(ThemeService);
 }

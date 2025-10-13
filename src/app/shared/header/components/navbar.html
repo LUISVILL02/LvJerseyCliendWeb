@@ -1,0 +1,19 @@
+<nav>
+    <ul class="flex gap-[50px] text-text-100 dark:text-accent-200-dark text-[26px]">
+        @if (isAuthneticated()) {
+            <li><fa-icon [icon]="faHeart"/></li>
+            <li><fa-icon [icon]="faCartShopping"/></li>
+            <li><fa-icon [icon]="faUser"/></li>
+        }@else{
+            <div class="flex items-center">
+                <app-button-generic-action [padding]="'px-[10px]'" class="h-[30px] flex items-center border-r border-accent-200" [textContent]="'Registrarme'" [route]="'/' + commonRoutes.AUTH.BASE + '/' + commonRoutes.AUTH.REGISTER"/>
+                <app-button-generic-action [padding]="'px-[10px]'" class="h-[30px] flex items-center" [textContent]="'Iniciar sesión'" [route]="'/' + commonRoutes.AUTH.BASE + '/' + commonRoutes.AUTH.LOGIN"/>
+            </div>
+        }
+        @if(themeService.theme() === 'dark') {
+            <li class="cursor-pointer" (click)="themeService.toggle()"><fa-icon [icon]="faMoon"/></li>
+        }@else {
+            <li class="cursor-pointer" (click)="themeService.toggle()"><fa-icon [icon]="faSun"/></li>
+        }
+    </ul>
+</nav>

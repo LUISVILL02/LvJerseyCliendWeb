@@ -1,0 +1,50 @@
+<div class="p-10 w-full">
+    <form [formGroup]="loginForm" class="w-full rounded-[7px] px-[40px] py-[20px] flex flex-col justify-start gap-[25px] 
+            bg-bg-100 dark:bg-bg-100-dark shadow-[0_3px_10px_5px_rgba(221,185,0,0.20)]">
+        <div class="flex w-full h-[38px] items-center">
+            <h1 class="text-[32px] text-text-200 dark:text-text-200-dark">Iniciar sesión</h1>
+        </div>
+        <div class="flex flex-col gap-[10px] w-full">
+            <label for="Email" class="text-[16px] font-normal text-text-200">Usuario</label>
+            <app-input 
+                formControlName="username" 
+                [type]="'email'" 
+                [placeHolder]="'Email o nombre de usuario'" 
+                [inputWidth]="'w-full'"
+                [error]="isInvalid('username').inValid ? getErrorMessage('username', 'Usuario') : null"
+            />
+        </div>
+        <div class="flex flex-col gap-[10px] w-full">
+            <label for="password" class="text-[16px] font-normal text-text-200">Contraseña</label>
+            <app-input-with-icon 
+                formControlName="password" 
+                [type]="'password'" 
+                [placeHolder]="'Contraseña'" 
+                [inputWidth]="'w-full'" 
+                [iconLeft]="faLock" 
+                [iconRight]="faEye"
+                [optionalIcon]="faEyeSlash"
+                [error]="isInvalid('password').inValid ? getErrorMessage('password', 'Contraseña') : null"
+            />
+        </div>
+        <div class="flex flex-col gap-2.5">
+            <app-button-generic class="w-full" [loading]="loading()" [textContent]="'Iniciar sesión'" (onClick)="sendData()"/>
+            @if(errorResponse().error){
+                <div class="w-full p-2 bg-red-100 dark:bg-[#8a4d4d32] border border-red-400 text-red-400 rounded" role="alert">
+                    <p>{{errorResponse().message}}</p>
+                </div>
+            }
+            <a class="text-[12px] font-normal underline cursor-pointer w-max text-accent-200 dark:text-accent-200-dark">Olvidé la contraseña</a>
+        </div>
+        <div class="flex justify-center items-center gap-2.5">
+            <div class="h-[1px] w-full bg-border dark:bg-border-dark"></div>
+            <p class="text-[14px] text-accent-200 dark:accent-accent-200-dark">O</p>
+            <div class="h-[1px] w-full bg-border dark:bg-border-dark"></div>
+        </div>
+        <div class="flex justify-center gap-2.5">
+            <app-button-social class="w-full" [provider]="'Google'" (authClick)="authClick.emit()"/>
+            <app-button-social class="w-full" [provider]="'Facebook'"/>
+        </div>
+        <span class="text-[16px] font-light text-text-200 dark:text-text-200-dark">¿No tienes cuenta? <a [routerLink]="'/' + commonRoutes.AUTH.BASE + '/' + commonRoutes.AUTH.REGISTER" class="font-medium underline cursor-pointer">Registrate</a></span>
+    </form>
+</div>

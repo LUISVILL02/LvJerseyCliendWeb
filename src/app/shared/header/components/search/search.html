@@ -1,0 +1,19 @@
+<div
+    class="w-[666px] rounded-[24px] bg-bg-100 dark:bg-bg-100-dark border border-border dark:border-border-dark transition-colors duration-300">
+    <div class="flex items-center justify-between h-full px-[15px] py-[15px]">
+        <div class="flex items-center gap-[11px] flex-1">
+            <fa-icon [icon]="faSearch" class="text-[15px] text-accent-100 dark:text-accent-100-dark">
+            </fa-icon>
+            <input type="text" [value]="searchValue()" (focus)="onFocus()" (blur)="onBlur()"
+                placeholder="Buscar camisetas, equipo, marca..."
+                class="flex-1 bg-transparent border-none outline-none text-[12px] font-normal text-accent-200 dark:text-accent-200-dark placeholder:text-accent-100 dark:placeholder:text-accent-100-dark" />
+        </div>
+        @if (searchValue()) {
+            <button type="button" (click)="clearSearch()" class="w-[15px] h-[15px] flex items-center justify-center">
+                <fa-icon [icon]="faXmark" class="text-[15px] text-accent-100 dark:text-accent-100-dark">
+                </fa-icon>
+            </button>
+        }
+
+    </div>
+</div>

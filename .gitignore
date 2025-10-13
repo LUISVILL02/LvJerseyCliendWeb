@@ -28,6 +28,10 @@ yarn-error.log
 !.vscode/extensions.json
 .history/*
 
+# GitHub Copilot
+.github/copilotinstructions
+.instructions.md
+
 # Miscellaneous
 /.angular/cache
 .sass-cache/
@@ -40,3 +44,7 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Environment files personales
+environment.local.ts
+environment.*.local.ts

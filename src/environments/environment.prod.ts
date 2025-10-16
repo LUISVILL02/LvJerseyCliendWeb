@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://api.lvjersey.com/api',
+    apiUrl: '',
     appName: 'LVJersey',
     version: '1.0.0'
 };

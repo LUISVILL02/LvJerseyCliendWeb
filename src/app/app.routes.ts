@@ -16,6 +16,10 @@ interface CommonRoutes {
         FAVORITES: string;
         REVIEWS: string;
     };
+    JERSEYS: {
+        BASE: string;
+        DETAILS: string;
+    };
 }
 
 export const commonRoutes: CommonRoutes = {
@@ -32,6 +36,10 @@ export const commonRoutes: CommonRoutes = {
         ORDERS: 'orders',
         FAVORITES: 'favorites',
         REVIEWS: 'reviews'
+    },
+    JERSEYS: {
+        BASE: 'jerseys',
+        DETAILS: 'details'
     }
 }
 
@@ -45,6 +53,10 @@ export const routes: Routes = [
         path: commonRoutes.ACCOUNT.BASE,
         canMatch: [authGuard],
         loadChildren: () => import('./featured/account/account.routes').then(m => m.accountRoutes)
+    },
+    {
+        path: commonRoutes.JERSEYS.BASE,
+        loadChildren: () => import('./featured/jerseys/jersey.routes').then(m => m.jerseyRoutes)
     },
     {
         path: commonRoutes.HOME,

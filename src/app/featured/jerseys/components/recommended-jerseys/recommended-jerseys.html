@@ -1,0 +1,15 @@
+<div class="flex flex-col gap-[28px] w-full">
+
+    <!-- Título -->
+    <h2 class="font-bold text-[20px] text-text-100 dark:text-text-100-dark leading-normal">
+        {{ data().title }}
+    </h2>
+
+    <!-- Grid responsive de cards - Aprovecha mejor el espacio -->
+    <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-[24px] w-full">
+        @for (jersey of data().jerseys; track jersey.id) {
+        <app-card-jersey [jersey]="jersey" class="w-full" />
+        }
+    </div>
+
+</div>

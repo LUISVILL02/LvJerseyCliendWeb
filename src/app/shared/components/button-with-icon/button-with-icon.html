@@ -1,0 +1,11 @@
+<button type="button" (click)="handleClick()"
+    class="flex items-center justify-center bg-bg-100 dark:bg-bg-100-dark border border-bg-300 dark:border-bg-300-dark 
+    border-solid rounded-[14px] w-full gap-[10px] px-0 py-[14px] hover:bg-bg-200 dark:hover:bg-bg-200-dark transition-colors cursor-pointer"
+>
+
+    <ng-content />
+    <span
+        class="font-normal text-[14px] text-text-100 dark:text-text-100-dark leading-normal">
+        {{ text() }}
+    </span>
+</button>

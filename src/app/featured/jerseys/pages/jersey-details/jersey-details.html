@@ -1,0 +1,176 @@
+<section
+    class="flex flex-col gap-[40px] px-[20px] lg:px-[100px] 3xl:px-[300px] pt-[20px] lg:pt-[70px] pb-[30px] bg-bg-100 dark:bg-bg-100-dark min-h-screen">
+    <!-- Sección principal: Imágenes + Info del producto -->
+    <div class="flex flex-col md:flex-row gap-[40px] items-start w-full">
+
+        <!-- Columna izquierda: Imágenes -->
+        <div class="flex flex-col gap-[40px] w-full md:items-start md:w-1/2"> <!-- Imagen principal -->
+            <div class="h-[500px] w-full">
+                <div class=" bg-bg-300 dark:bg-bg-300-dark h-[478px] left-0 top-0 w-full rounded-[10px]"></div>
+            </div>
+            <!-- Miniaturas -->
+            <div class="h-[89px] w-full">
+                <div class="flex gap-[20px] items-start h-[89px] w-full">
+                    @for (image of jerseyDetailSignal().images.slice(0, 3); track $index) {
+                    <button type="button" (click)="selectImage($index)"
+                        class="flex-1 bg-bg-300 dark:bg-bg-300-dark h-[89px] min-w-0 rounded-[10px] hover:opacity-80 transition-opacity cursor-pointer"
+                        [class.ring-2]="selectedImageIndex() === $index"
+                        [class.ring-primary-300]="selectedImageIndex() === $index">
+                    </button>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Columna derecha: Información del producto -->
+        <div class="flex flex-col gap-[21px] w-full md:items-start md:w-1/2">
+            <!-- Tag -->
+            @if (jerseyDetailSignal().tag) {
+            <div
+                class="bg-primary-300 dark:bg-primary-300 flex gap-[7px] items-start px-[11px] py-[7px] rounded-full w-max">
+                <p class="font-normal text-[14px] text-text-100 dark:text-text-100 leading-normal">
+                    {{ jerseyDetailSignal().tag }}
+                </p>
+            </div>
+            }
+
+            <!-- Nombre y Rating -->
+            <div class="flex flex-col gap-[7px] items-start overflow-clip w-full">
+                <!-- Nombre -->
+                <h1 class="font-bold text-[22px] text-text-100 dark:text-text-100-dark leading-normal w-full">
+                    {{ jerseyDetailSignal().name }}
+                </h1>
+
+                <!-- Rating y reseñas -->
+                <div class="flex gap-[1px] items-center shrink-0">
+                    @for (star of [1,2,3,4,5]; track star) {
+                    <app-star-icon [size]="14"
+                        [filled]="star <= fullStars() || (star === fullStars() + 1 && hasHalfStar())" />
+                    }
+                    <span class=" font-normal text-[14px] text-text-200 dark:text-text-200-dark leading-normal ml-1">
+                        {{ jerseyDetailSignal().rating }}
+                    </span>
+                    <span class=" font-normal text-[14px] text-text-200 dark:text-text-200-dark leading-normal">
+                        ({{ jerseyDetailSignal().reviewsCount }} reseñas)
+                    </span>
+                </div>
+            </div>
+
+            <!-- Precio -->
+            <p class=" font-bold text-[25px] text-text-100 dark:text-text-100-dark leading-normal w-full">
+                {{ jerseyDetailSignal().price | currency:'COP':'symbol-narrow':'1.0-0' }}
+            </p>
+
+            <!-- Tallas -->
+            <div class="flex flex-col gap-[4px] items-start shrink-0">
+                <p class=" font-normal text-[14px] text-text-100 dark:text-text-100-dark leading-normal">
+                    Talla
+                </p>
+                <div class="flex gap-[7px] items-start shrink-0">
+                    @for (size of jerseyDetailSignal().availableSizes; track size.code) {
+                    <button type="button" (click)="selectSize(size.code)" [disabled]="!size.available"
+                        class="bg-bg-100 dark:bg-bg-100-dark border border-bg-300 dark:border-bg-300-dark border-solid 
+                        rounded-[4px] px-[14px] py-[6px] hover:bg-bg-200 dark:hover:bg-bg-200-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                        [class.ring-1]="selectedSize() === size.code"
+                        [class.ring-primary-200]="selectedSize() === size.code">
+                        <span class="font-normal text-[14px] text-text-100 dark:text-text-100-dark leading-normal">
+                            {{ size.code }}
+                        </span>
+                    </button>
+                    }
+                </div>
+            </div>
+
+            <!-- Parches -->
+            <div class="flex flex-col gap-[7px] w-full">
+                <p class="font-normal text-[14px] text-text-100 dark:text-text-100-dark leading-normal">
+                    Parches
+                </p>
+                <div class="flex gap-[21px] pl-[5px]">
+                    @for (patch of jerseyDetailSignal().patches.slice(0, 4); track patch.id) {
+                    <button type="button" (click)="togglePatch(patch.id)"
+                        class="bg-bg-300 dark:bg-bg-300-dark h-[50px] w-[80px] rounded-[8px] hover:opacity-80 transition-opacity flex items-center justify-center cursor-pointer"
+                        [class.ring-1]="selectedPatches().includes(patch.id)"
+                        [class.ring-primary-200]="selectedPatches().includes(patch.id)">
+                    </button>
+                    }
+                </div>
+            </div>
+
+            <!-- Customización -->
+            <div class="flex flex-col gap-[7px] items-start overflow-clip shrink-0 w-full">
+                <p class="font-normal text-[14px] text-text-100 dark:text-text-100-dark leading-normal">
+                    Customización
+                </p>
+                <app-input class="w-full" [type]="'text'"
+                    [placeHolder]="'Nombre y número (Tipografia) Ej: 10 Messi (Champios league)'"
+                    [inputWidth]="'w-full'" [inputHeight]="'h-[40px]'" />
+            </div>
+
+            <!-- Cantidad -->
+            <div class="flex flex-col gap-[7px] items-start overflow-clip shrink-0 w-full">
+                <p
+                    class="font-['Roboto',sans-serif] font-normal text-[14px] text-text-100 dark:text-text-100-dark leading-normal">
+                    Cantidad
+                </p>
+                <div class="flex gap-[7px] items-center shrink-0">
+                    <!-- Botón menos -->
+                    <button type="button" (click)="decrementQuantity()"
+                        class="bg-bg-100 dark:bg-bg-100-dark border border-bg-300 dark:border-bg-300-dark border-solid h-[25px] w-[28px] 
+                        rounded-[4px] flex items-center justify-center hover:bg-bg-200 dark:hover:bg-bg-200-dark transition-colors cursor-pointer">
+                        <app-minus-icon [size]="11" />
+                    </button>
+
+                    <!-- Cantidad actual -->
+                    <div
+                        class="bg-bg-100 dark:bg-bg-100-dark flex items-center justify-center px-[7px] py-[4px] rounded-[14px]">
+                        <span
+                            class="font-['Roboto',sans-serif] font-normal text-[14px] text-text-100 dark:text-text-100-dark leading-normal">
+                            {{ quantity() }}
+                        </span>
+                    </div>
+
+                    <!-- Botón más -->
+                    <button type="button" (click)="incrementQuantity()"
+                        class="bg-bg-100 dark:bg-bg-100-dark border border-bg-300 dark:border-bg-300-dark border-solid h-[25px] w-[28px] 
+                        rounded-[4px] flex items-center justify-center hover:bg-bg-200 dark:hover:bg-bg-200-dark transition-colors cursor-pointer">
+                        <app-plus-icon [size]="11" />
+                    </button>
+                </div>
+            </div>
+
+            <!-- Botón Agregar al carrito -->
+            @if(isAuthenticated() && !isAdmin()){
+                <button type="button" (click)="addToCart()"
+                    class="bg-primary-300 dark:bg-primary-300 flex gap-[7px] items-center justify-center px-0 py-[14px] rounded-[14px] w-full cursor-pointer">
+                    <app-cart-icon [size]="15" />
+                    <span class="font-normal text-[14px] text-text-100 dark:text-text-100 leading-normal">
+                        Agregar al carrito - {{ totalPrice() | currency:'COP':'symbol-narrow':'1.0-0' }}
+                    </span>
+                </button>
+            }
+
+            <!-- Botones Favoritos y Compartir -->
+            <div class="flex gap-[30px] w-full">
+                @if(isAuthenticated() && !isAdmin()){
+                    <app-button-with-icon class="w-full" [text]="'Favoritos'" (clicked)="addToFavorites()">
+                        @if(jerseyDetailSignal().isFavorite){
+                            <app-heart-filled-icon [size]="15" />
+                        }@else{
+                            <app-heart-icon [size]="15" />
+                        }
+                    </app-button-with-icon>
+                }
+                <app-button-with-icon class="w-full" [text]="'Compartir'" (clicked)="share()">
+                    <app-share-icon [size]="15" />
+                </app-button-with-icon>
+            </div>
+
+        </div>
+    </div> <!-- Sección de información adicional: Descripción y Reseñas -->
+    <app-product-info-tabs [productInfo]="productInfo()" [reviews]="jerseyDetailSignal().reviews || []" />
+
+    <!-- Sección de camisetas recomendadas -->
+    <app-recommended-jerseys [data]="recommendedJerseys()" />
+
+</section>

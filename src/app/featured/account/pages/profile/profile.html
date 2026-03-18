@@ -1,0 +1,201 @@
+<div class="flex flex-col gap-[50px]">
+  <!-- Título -->
+  <h1 class="text-[24px] lg:text-[32px] font-medium text-accent-200 dark:text-accent-200-dark">
+    Mi perfil
+  </h1>
+
+  <!-- Contenido principal -->
+  <div class="flex flex-col lg:flex-row gap-[40px]">
+    <!-- Formulario de información -->
+    <div class="flex-1 flex flex-col gap-[20px]">
+      <!-- Información personal -->
+      <div class="flex flex-col gap-[15px]">
+        <!-- Nombre de usuario -->
+        <div class="flex flex-col sm:flex-row sm:items-center gap-[10px]">
+          <span class="w-[150px] text-[15px] font-light text-accent-200 dark:text-accent-200-dark">
+            Nombre de usuario
+          </span>
+          <span class="text-[15px] font-medium text-accent-200 dark:text-accent-200-dark">
+            {{ profile().username }}
+          </span>
+        </div>
+
+        <!-- Nombre completo -->
+        <div class="flex flex-col sm:flex-row sm:items-center gap-[10px]">
+          <span class="w-[150px] text-[15px] font-light text-accent-200 dark:text-accent-200-dark">
+            Nombre
+          </span>
+          <input
+            type="text"
+            [(ngModel)]="fullName"
+            placeholder="Ingresa tu nombre completo"
+            class="flex-1 max-w-[360px] px-[10px] py-[8px] bg-bg-200 dark:bg-bg-300-dark rounded-[10px] text-[15px] font-medium text-accent-200 dark:text-accent-200-dark placeholder:text-accent-100 dark:placeholder:text-accent-100-dark outline-none"
+          />
+        </div>
+
+        <!-- Correo electrónico -->
+        <div class="flex flex-col sm:flex-row sm:items-center gap-[10px]">
+          <span class="w-[150px] text-[15px] font-light text-accent-200 dark:text-accent-200-dark">
+            Correo electrónico
+          </span>
+          <div class="flex items-center gap-[19px]">
+            <span class="text-[15px] font-medium text-accent-200 dark:text-accent-200-dark">
+              {{ maskedEmail() }}
+            </span>
+            <button
+              (click)="onChangeEmail()"
+              class="text-[12px] font-extralight text-accent-200 dark:text-accent-200-dark underline cursor-pointer hover:text-text-100 dark:hover:text-text-100-dark transition-colors"
+            >
+              Cambiar
+            </button>
+          </div>
+        </div>
+
+        <!-- Teléfono -->
+        <div class="flex flex-col sm:flex-row sm:items-center gap-[10px]">
+          <span class="w-[150px] text-[15px] font-light text-accent-200 dark:text-accent-200-dark">
+            Número de teléfono
+          </span>
+          <div class="flex items-center gap-[19px]">
+            <span class="text-[15px] font-medium text-accent-200 dark:text-accent-200-dark">
+              {{ maskedPhone() || 'No registrado' }}
+            </span>
+            <button
+              (click)="onChangePhone()"
+              class="text-[12px] font-extralight text-accent-200 dark:text-accent-200-dark underline cursor-pointer hover:text-text-100 dark:hover:text-text-100-dark transition-colors"
+            >
+              Cambiar
+            </button>
+          </div>
+        </div>
+
+        <!-- Contraseña -->
+        <div class="flex flex-col sm:flex-row sm:items-center gap-[10px]">
+          <span class="w-[150px] text-[15px] font-light text-accent-200 dark:text-accent-200-dark">
+            Contraseña
+          </span>
+          <div class="flex items-center gap-[19px]">
+            <span class="text-[15px] font-medium text-accent-200 dark:text-accent-200-dark">
+              ••••••••
+            </span>
+            <button
+              (click)="onChangePassword()"
+              class="text-[12px] font-extralight text-accent-200 dark:text-accent-200-dark underline cursor-pointer hover:text-text-100 dark:hover:text-text-100-dark transition-colors"
+            >
+              Cambiar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Separador -->
+      <div class="h-[1px] bg-border dark:bg-border-dark my-[10px]"></div>
+
+      <!-- Dirección -->
+      <div class="flex flex-col gap-[15px]">
+        <!-- País -->
+        <div class="flex flex-col sm:flex-row sm:items-center gap-[10px]">
+          <span class="w-[150px] text-[15px] font-light text-accent-200 dark:text-accent-200-dark">
+            País
+          </span>
+          <input
+            type="text"
+            [(ngModel)]="address().country"
+            placeholder="Ingresa tu país"
+            class="flex-1 max-w-[360px] px-[10px] py-[8px] bg-bg-200 dark:bg-bg-300-dark rounded-[10px] text-[15px] font-medium text-accent-200 dark:text-accent-200-dark placeholder:text-accent-100 dark:placeholder:text-accent-100-dark outline-none"
+          />
+        </div>
+
+        <!-- Estado -->
+        <div class="flex flex-col sm:flex-row sm:items-center gap-[10px]">
+          <span class="w-[150px] text-[15px] font-light text-accent-200 dark:text-accent-200-dark">
+            Estado
+          </span>
+          <input
+            type="text"
+            [(ngModel)]="address().state"
+            placeholder="Ingresa tu estado"
+            class="flex-1 max-w-[360px] px-[10px] py-[8px] bg-bg-200 dark:bg-bg-300-dark rounded-[10px] text-[15px] font-medium text-accent-200 dark:text-accent-200-dark placeholder:text-accent-100 dark:placeholder:text-accent-100-dark outline-none"
+          />
+        </div>
+
+        <!-- Ciudad -->
+        <div class="flex flex-col sm:flex-row sm:items-center gap-[10px]">
+          <span class="w-[150px] text-[15px] font-light text-accent-200 dark:text-accent-200-dark">
+            Ciudad
+          </span>
+          <input
+            type="text"
+            [(ngModel)]="address().city"
+            placeholder="Ingresa tu ciudad"
+            class="flex-1 max-w-[360px] px-[10px] py-[8px] bg-bg-200 dark:bg-bg-300-dark rounded-[10px] text-[15px] font-medium text-accent-200 dark:text-accent-200-dark placeholder:text-accent-100 dark:placeholder:text-accent-100-dark outline-none"
+          />
+        </div>
+
+        <!-- Código postal -->
+        <div class="flex flex-col sm:flex-row sm:items-center gap-[10px]">
+          <span class="w-[150px] text-[15px] font-light text-accent-200 dark:text-accent-200-dark">
+            Código postal
+          </span>
+          <input
+            type="text"
+            [(ngModel)]="address().postalCode"
+            placeholder="Ingresa tu código postal"
+            class="flex-1 max-w-[360px] px-[10px] py-[8px] bg-bg-200 dark:bg-bg-300-dark rounded-[10px] text-[15px] font-medium text-accent-200 dark:text-accent-200-dark placeholder:text-accent-100 dark:placeholder:text-accent-100-dark outline-none"
+          />
+        </div>
+
+        <!-- Dirección por defecto -->
+        <div class="flex flex-col sm:flex-row sm:items-start gap-[10px]">
+          <span class="w-[150px] text-[15px] font-light text-accent-200 dark:text-accent-200-dark">
+            Dirección por defecto
+          </span>
+          <textarea
+            [(ngModel)]="address().defaultAddress"
+            placeholder="Ingresa tu dirección completa"
+            rows="2"
+            class="flex-1 max-w-[360px] px-[10px] py-[8px] bg-bg-200 dark:bg-bg-300-dark rounded-[10px] text-[15px] font-medium text-accent-200 dark:text-accent-200-dark placeholder:text-accent-100 dark:placeholder:text-accent-100-dark outline-none resize-none"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección de avatar -->
+    <div class="w-full lg:w-[448px] flex flex-col items-center gap-[20px] p-[10px] border border-border dark:border-border-dark rounded-[7px]">
+      <!-- Avatar preview -->
+      <div class="w-[105px] h-[105px] rounded-full bg-bg-300 dark:bg-bg-300-dark overflow-hidden">
+        @if (avatarPreview() || profile().avatarUrl) {
+          <img
+            [src]="avatarPreview() || profile().avatarUrl"
+            alt="Avatar"
+            class="w-full h-full object-cover"
+          />
+        }
+      </div>
+
+      <!-- Botón seleccionar imagen -->
+      <button
+        (click)="onSelectImage()"
+        class="px-[20px] py-[15px] border border-bg-300 dark:border-bg-300-dark rounded-[20px] text-[16px] text-text-100 dark:text-text-100-dark cursor-pointer hover:bg-bg-200 dark:hover:bg-bg-300-dark transition-colors"
+      >
+        Seleccionar imagen
+      </button>
+
+      <!-- Instrucciones -->
+      <p class="text-[16px] text-accent-200 dark:text-accent-200-dark text-center">
+        Tamaño de archivo: máximo 1 MB<br />
+        Extensión de archivo: .JPEG, .PNG
+      </p>
+    </div>
+  </div>
+
+  <!-- Botón guardar -->
+  <div class="w-full max-w-[119px]">
+    <app-button-generic
+      textContent="Guardar"
+      height="h-[42px]"
+      [loading]="loading()"
+      (onClick)="onSave()"
+    />
+  </div>
+</div>

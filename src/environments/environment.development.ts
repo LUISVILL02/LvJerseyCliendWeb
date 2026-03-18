@@ -6,5 +6,5 @@ export const environment = {
     enableDebug: true,
     googleClientId: '',
     googleClientSecret: '',
-    facebookAppId: 'FACEBOOK_APP_ID',
+    facebookAppId: '',
 };

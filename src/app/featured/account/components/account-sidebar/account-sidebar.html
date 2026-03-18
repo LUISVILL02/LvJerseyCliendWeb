@@ -1,0 +1,53 @@
+<nav class="w-full lg:w-[259px] bg-bg-100 dark:bg-bg-200-dark rounded-[7px] p-[5px] pt-[10px] pb-[10px]">
+  <ul class="flex flex-col gap-[20px]">
+    @for (item of navItems; track item.label) {
+      @if (item.isAction) {
+        <li>
+          <button
+            (click)="onNavItemClick(item)"
+            class="flex items-center gap-[10px] w-full px-[20px] py-[10px] rounded-[20px] text-[13px] font-normal text-accent-200 dark:text-accent-200-dark hover:bg-bg-200 dark:hover:bg-bg-300-dark transition-colors cursor-pointer"
+          >
+            @switch (item.icon) {
+              @case ('logout') {
+                <app-logout-icon [size]="20" />
+              }
+            }
+            <span>{{ item.label }}</span>
+          </button>
+        </li>
+      } @else {
+        <li>
+          <a
+            [routerLink]="item.route"
+            routerLinkActive="bg-primary-300 text-text-100"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="flex items-center justify-between gap-[10px] w-full px-[20px] py-[10px] rounded-[20px] text-[13px] font-normal text-accent-200 dark:text-accent-200-dark hover:bg-bg-200 dark:hover:bg-bg-300-dark transition-colors"
+            [class.bg-bg-100]="true"
+            [class.dark:bg-bg-200-dark]="true"
+          >
+            <div class="flex items-center gap-[10px]">
+              @switch (item.icon) {
+                @case ('user') {
+                  <app-user-icon [size]="20" />
+                }
+                @case ('orders') {
+                  <app-orders-icon [size]="16" />
+                }
+                @case ('heart') {
+                  <app-heart-icon [size]="20" />
+                }
+                @case ('star') {
+                  <app-star-icon [size]="20" [filled]="false" />
+                }
+              }
+              <span>{{ item.label }}</span>
+            </div>
+            @if (item.showArrow) {
+              <app-arrow-right-icon [size]="15" />
+            }
+          </a>
+        </li>
+      }
+    }
+  </ul>
+</nav>

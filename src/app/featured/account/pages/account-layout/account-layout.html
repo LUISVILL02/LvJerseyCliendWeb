@@ -1,0 +1,13 @@
+<section class="min-h-[calc(100vh-120px)] bg-bg-200 dark:bg-bg-200-dark px-4 lg:px-[100px] py-[20px]">
+  <div class="flex flex-col lg:flex-row gap-[20px] max-w-[1336px] mx-auto">
+    <!-- Sidebar -->
+    <aside class="w-full lg:w-auto flex-shrink-0">
+      <app-account-sidebar />
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 bg-bg-100 dark:bg-bg-200-dark rounded-[7px] p-[20px] lg:px-[40px]">
+      <router-outlet />
+    </main>
+  </div>
+</section>

@@ -3,7 +3,7 @@
         @if (isAuthneticated()) {
             <li><fa-icon [icon]="faHeart"/></li>
             <li><fa-icon [icon]="faCartShopping"/></li>
-            <li><fa-icon [icon]="faUser"/></li>
+            <li [routerLink]="'/' + commonRoutes.ACCOUNT.BASE" class="cursor-pointer"><fa-icon [icon]="faUser"/></li>
         }@else{
             <div class="flex items-center">
                 <app-button-generic-action [padding]="'px-[10px]'" class="h-[30px] flex items-center border-r border-accent-200" [textContent]="'Registrarme'" [route]="'/' + commonRoutes.AUTH.BASE + '/' + commonRoutes.AUTH.REGISTER"/>

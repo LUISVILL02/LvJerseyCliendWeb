@@ -20,6 +20,7 @@ export class UserAuthentication {
   private refreshTokeSignal = signal<string>(isPlatformBrowser(this.platformId) ? localStorage.getItem('refreshTokenAccessLvJersey') || '' : '');
 
   private isLoggedInSignal = computed<boolean>(() => !!this.tokenSignal());
+  private isAdminSignal = computed<boolean>(() => this.userSignal()?.rol === 'ADMIN');
 
 
   setTokenSignal = (token: string) => this.tokenSignal.set(token)
@@ -32,8 +33,18 @@ export class UserAuthentication {
     }
   }
 
+  clearTokens = () => {
+    this.tokenSignal.set('');
+    this.refreshTokeSignal.set('');
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('tokenAccessLvJersey');
+      localStorage.removeItem('refreshTokenAccessLvJersey');
+    }
+  }
+
   getUserSignal = () => this.userSignal();
   getTokenSignal = () => this.tokenSignal();
   getRefreshTokeSignal = () => this.refreshTokeSignal();
   getIsLoggedInSignal = () => this.isLoggedInSignal();
+  getIsAdminSignal = () => this.isAdminSignal();
 }

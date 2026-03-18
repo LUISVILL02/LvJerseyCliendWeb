@@ -4,11 +4,12 @@ import { FaIconComponent } from "@fortawesome/angular-fontawesome";
 import { ThemeService } from "../../theme/theme";
 import { ButtonGenericAction } from "../../components/button-generic-action/button-generic-action";
 import { commonRoutes } from "@src/app/app.routes";
+import { RouterLink } from "@angular/router";
 
 @Component({
     selector: 'app-navbar',
     templateUrl: './navbar.html',
-    imports: [FaIconComponent, ButtonGenericAction],
+    imports: [FaIconComponent, ButtonGenericAction, RouterLink],
 })
 export class Navbar {
 

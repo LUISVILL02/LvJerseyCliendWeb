@@ -1,0 +1,38 @@
+<section class="text-text-100 dark:text-text-100-dark">
+    <div class="hidden 2xl:flex 2xl:flex-col gap-[5px]">
+        <h2 class="text-[16px] font-semibold">{{tittleCategory()}}</h2>
+        <ul class="flex flex-col gap-[5px]">
+            @for (category of categories(); track category.id) {
+            <li
+                class="px-[20px] py-[10px] text-[16px] font-light cursor-pointer hover:bg-bg-200 dark:hover:bg-bg-200-dark rounded-lg transition-colors duration-300">
+                <span>{{category.name}}</span>
+            </li>
+            }
+        </ul>
+    </div>
+
+    <div class="2xl:hidden relative">
+        <button (click)="toggleMenu()"
+            class="flex items-center justify-between w-full px-[20px] py-[10px] text-[16px] font-semibold bg-bg-100 dark:bg-bg-100-dark hover:bg-bg-200 dark:hover:bg-bg-200-dark rounded-lg transition-colors duration-300"
+            [attr.aria-expanded]="isMenuOpen()" type="button">
+            <span>{{tittleCategory()}}</span>
+            <fa-icon [icon]="faChevronDown" class="transition-transform duration-300" [class.rotate-180]="isMenuOpen()">
+            </fa-icon>
+        </button> 
+        @if (isMenuOpen()) {
+            <div
+                class="absolute top-full left-0 right-0 w-max z-50 mt-1 bg-bg-100 dark:bg-bg-100-dark 
+                    border border-bg-200 dark:border-bg-200-dark rounded-lg shadow-lg max-h-80 overflow-y-auto 
+                    scrollbar-thin scrollbar-thumb-primary scrollbar-track-transparent scrollbar-thumb-rounded hover:scrollbar-thumb-primary/80">
+                <ul class="py-2">
+                    @for (category of categories(); track category.id) {
+                    <li (click)="closeMenu()"
+                        class="px-[20px] py-[10px] text-[16px] font-light cursor-pointer hover:bg-bg-200 dark:hover:bg-bg-200-dark transition-colors duration-300">
+                        <span>{{category.name}}</span>
+                    </li>
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+</section>

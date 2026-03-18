@@ -1,6 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
 
+@plugin 'tailwind-scrollbar' {
+    nocompatible: true;
+    preferredStrategy: 'pseudoelements';
+};
+
 /* Tailwind v4 Theme Configuration */
 @theme {
   /* Colors - Light theme (default) */
@@ -13,7 +18,7 @@
   
   --color-accent-100: #c0c0c0;
   --color-accent-200: #626262;
-  
+
   --color-text-100: #333333;
   --color-text-200: #5c5c5c;
   
@@ -29,6 +34,9 @@
   --color-warning-100: #ffcf211a;
   --color-success: #00cd6a;
   --color-success-100: #00ff841a;
+
+
+  --breakpoint-3xl: 120rem 
 }
 
 

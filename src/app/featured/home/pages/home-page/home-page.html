@@ -1,1 +1,14 @@
-<p>home-page works!</p>
+<section class="flex flex-col gap-[40px] px-[20px] lg:px-[100px] pt-[70px] pb-[30px] bg-bg-100 dark:bg-bg-100-dark min-h-screen transition-colors duration-50">
+   <div class="flex justify-between h-max">
+        <app-category-list class="flex-[20%]" [categories]="categories()"/>
+        <div class="flex flex-[89%] h-full justify-end items-start">
+            <img src="/images/HomeImag.svg" alt="Imagen de home de la pagina" class=" object-fill"/>
+        </div>
+   </div>
+   @for (league of leagues(); track $index) {
+       <div class="flex justify-between h-max">
+            <app-category-list class="flex-[12%]" [tittleCategory]="league.country" [categories]="league.leagues"/>
+            <app-list-jerseys class="flex-[89%] h-full" [jerseys]="getJerseysByLeague(league.country)"/>
+       </div>
+   }
+</section>

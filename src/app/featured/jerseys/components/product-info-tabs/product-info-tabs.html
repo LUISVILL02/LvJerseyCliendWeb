@@ -1,0 +1,267 @@
+<div class="flex flex-col gap-[21px] items-start w-full">
+
+    <!-- Tabs superiores -->
+    <div
+        class="bg-bg-300 dark:bg-bg-300-dark box-border gap-[7px] grid grid-cols-2 h-[56px] overflow-clip p-[7px] rounded-[18px] w-full transition-colors">
+
+        <!-- Tab Descripción -->
+        <button type="button" (click)="selectTab('description')" [class.bg-bg-100]="activeTab() === 'description'"
+            [class.dark:bg-bg-100-dark]="activeTab() === 'description'"
+            [class.bg-transparent]="activeTab() !== 'description'"
+            class="flex items-center justify-center h-[42px] px-[28px] py-[14px] rounded-[14px] transition-colors cursor-pointer hover:opacity-80">
+            <span
+                class="font-normal text-[14px] text-text-100 dark:text-text-100-dark leading-normal whitespace-nowrap">
+                Descripción
+            </span>
+        </button>
+
+        <!-- Tab Reseñas -->
+        <button type="button" (click)="selectTab('reviews')" [class.bg-bg-100]="activeTab() === 'reviews'"
+            [class.dark:bg-bg-100-dark]="activeTab() === 'reviews'" [class.bg-transparent]="activeTab() !== 'reviews'"
+            class="flex items-center justify-center h-[42px] px-[28px] py-[14px] rounded-[14px] transition-colors cursor-pointer hover:opacity-80">
+            <span
+                class="font-normal text-[14px] text-text-100 dark:text-text-100-dark leading-normal whitespace-nowrap">
+                Reseñas
+            </span>
+        </button>
+
+    </div>
+
+    <!-- Contenido - Sección Descripción -->
+    @if (activeTab() === 'description') {
+    <div class="grid grid-cols-[170px_minmax(0,_1fr)] gap-y-[7px] w-full overflow-clip">
+
+        <!-- Columna izquierda: Labels -->
+        <div class="flex flex-col gap-[7px] items-start p-[7px]">
+            <div class="flex flex-col h-[16px] justify-center w-full">
+                <p class="font-semibold text-[14px] text-text-100 dark:text-text-100-dark leading-normal">
+                    Nombre del producto
+                </p>
+            </div>
+            <div class="flex flex-col h-[16px] justify-center w-full">
+                <p class="font-semibold text-[14px] text-text-100 dark:text-text-100-dark leading-normal">
+                    N° del artículo
+                </p>
+            </div>
+            <div class="flex flex-col h-[16px] justify-center w-full">
+                <p class="font-semibold text-[14px] text-text-100 dark:text-text-100-dark leading-normal">
+                    Peso
+                </p>
+            </div>
+            <div class="flex flex-col h-[16px] justify-center w-full">
+                <p class="font-semibold text-[14px] text-text-100 dark:text-text-100-dark leading-normal">
+                    Categoría
+                </p>
+            </div>
+            <div class="flex flex-col h-[16px] justify-center w-full">
+                <p class="font-semibold text-[14px] text-text-100 dark:text-text-100-dark leading-normal">
+                    Marca
+                </p>
+            </div>
+            <div class="flex flex-col h-[16px] justify-center w-full">
+                <p class="font-semibold text-[14px] text-text-100 dark:text-text-100-dark leading-normal">
+                    Tipo
+                </p>
+            </div>
+            <div class="flex flex-col h-[16px] justify-center w-full">
+                <p class="font-semibold text-[14px] text-text-100 dark:text-text-100-dark leading-normal">
+                    Temporada
+                </p>
+            </div>
+        </div>
+
+        <!-- Columna derecha: Valores -->
+        <div class="flex flex-col gap-[7px] items-start p-[7px]">
+            <div class="flex flex-col h-[16px] justify-center w-full">
+                <p class="font-normal text-[14px] text-accent-100 dark:text-accent-100-dark leading-normal">
+                    {{ productInfo().productName }}
+                </p>
+            </div>
+            <div class="flex flex-col h-[16px] justify-center w-full">
+                <p class="font-normal text-[14px] text-accent-100 dark:text-accent-100-dark leading-normal">
+                    {{ productInfo().articleNumber }}
+                </p>
+            </div>
+            <div class="flex flex-col h-[16px] justify-center w-full">
+                <p class="font-normal text-[14px] text-accent-100 dark:text-accent-100-dark leading-normal">
+                    {{ productInfo().weight }}
+                </p>
+            </div>
+            <div class="flex flex-col h-[16px] justify-center w-full">
+                <p class="font-normal text-[14px] text-accent-100 dark:text-accent-100-dark leading-normal">
+                    {{ productInfo().category }}
+                </p>
+            </div>
+            <div class="flex flex-col h-[16px] justify-center w-full">
+                <p class="font-normal text-[14px] text-accent-100 dark:text-accent-100-dark leading-normal">
+                    {{ productInfo().brand }}
+                </p>
+            </div>
+            <div class="flex flex-col h-[16px] justify-center w-full">
+                <p class="font-normal text-[14px] text-accent-100 dark:text-accent-100-dark leading-normal">
+                    {{ productInfo().type }}
+                </p>
+            </div>
+            <div class="flex flex-col h-[16px] justify-center w-full">
+                <p class="font-normal text-[14px] text-accent-100 dark:text-accent-100-dark leading-normal">
+                    {{ productInfo().season }}
+                </p>
+            </div>
+        </div>
+
+    </div>
+    }
+    <!-- Contenido - Sección Reseñas -->
+    @if (activeTab() === 'reviews') {
+    <div class="flex flex-col gap-[21px] w-full">
+
+        <!-- Lista de reseñas -->
+        @for (review of visibleReviews(); track review.id) {
+        <div class="grid grid-cols-[136px_minmax(0,_1fr)] gap-[7px] w-full">
+
+            <!-- Columna izquierda: Rating general y fecha -->
+            <div class="flex flex-col gap-[7px] items-start">
+                <!-- Rating con estrellas -->
+                <div class="flex gap-[1px] items-center">
+                    @for (star of [1,2,3,4,5]; track star) {
+                    <app-star-icon [size]="21"
+                        [filled]="star <= getFullStars(review.overallRating) || (star === getFullStars(review.overallRating) + 1 && hasHalfStar(review.overallRating))" />
+                    }
+                    <span class="font-normal text-[14px] text-text-200 dark:text-text-200-dark leading-normal ml-1">
+                        {{ review.overallRating }}
+                    </span>
+                </div>
+                <!-- Fecha -->
+                <p class="font-normal text-[14px] text-text-100 dark:text-text-100-dark leading-normal">
+                    {{ review.date }}
+                </p>
+            </div>
+
+            <!-- Columna derecha: Detalles de la reseña -->
+            <div class="flex flex-col gap-[14px] items-start">
+
+                <!-- Usuario y bandera -->
+                <div class="flex gap-[7px] items-center">
+                    @if (review.countryFlag) {
+                    <img [src]="review.countryFlag" alt="Country flag" class="h-[13px] w-[18px] object-cover" />
+                    }
+                    <p class="font-normal text-[14px] text-text-100 dark:text-text-100-dark leading-normal">
+                        {{ review.user }}
+                    </p>
+                </div>
+
+                <!-- Calificaciones por categoría -->
+                <div class="flex flex-col gap-[7px] w-full">
+
+                    <!-- Calidad -->
+                    <div class="grid grid-cols-[147px_minmax(0,_1fr)] gap-[7px] items-center">
+                        <p class="font-normal text-[14px] text-text-100 dark:text-text-100-dark leading-normal">
+                            Calidad:
+                        </p>
+                        <div class="flex flex-col gap-[7px]">
+                            <div class="flex gap-[1px] items-center">
+                                @for (star of [1,2,3,4,5]; track star) {
+                                <app-star-icon [size]="21"
+                                    [filled]="star <= getFullStars(review.ratings.quality) || (star === getFullStars(review.ratings.quality) + 1 && hasHalfStar(review.ratings.quality))" />
+                                }
+                                <span
+                                    class="font-normal text-[14px] text-text-200 dark:text-text-200-dark leading-normal ml-1">
+                                    {{ review.ratings.quality }}
+                                </span>
+                            </div>
+                            <p class="font-normal text-[14px] text-text-100 dark:text-text-100-dark leading-normal">
+                                {{ review.comments.quality }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Tiempos establecidos -->
+                    <div class="grid grid-cols-[147px_minmax(0,_1fr)] gap-[7px] items-center">
+                        <p class="font-normal text-[14px] text-text-100 dark:text-text-100-dark leading-normal">
+                            Tiempos establecidos:
+                        </p>
+                        <div class="flex flex-col gap-[7px]">
+                            <div class="flex gap-[1px] items-center">
+                                @for (star of [1,2,3,4,5]; track star) {
+                                <app-star-icon [size]="21"
+                                    [filled]="star <= getFullStars(review.ratings.delivery) || (star === getFullStars(review.ratings.delivery) + 1 && hasHalfStar(review.ratings.delivery))" />
+                                }
+                                <span
+                                    class="font-normal text-[14px] text-text-200 dark:text-text-200-dark leading-normal ml-1">
+                                    {{ review.ratings.delivery }}
+                                </span>
+                            </div>
+                            <p class="font-normal text-[14px] text-text-100 dark:text-text-100-dark leading-normal">
+                                {{ review.comments.delivery }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Detalles -->
+                    <div class="grid grid-cols-[147px_minmax(0,_1fr)] gap-[7px] items-center">
+                        <p class="font-normal text-[14px] text-text-100 dark:text-text-100-dark leading-normal">
+                            Detalles:
+                        </p>
+                        <div class="flex flex-col gap-[7px]">
+                            <div class="flex gap-[1px] items-center">
+                                @for (star of [1,2,3,4,5]; track star) {
+                                <app-star-icon [size]="21"
+                                    [filled]="star <= getFullStars(review.ratings.details) || (star === getFullStars(review.ratings.details) + 1 && hasHalfStar(review.ratings.details))" />
+                                }
+                                <span
+                                    class="font-normal text-[14px] text-text-200 dark:text-text-200-dark leading-normal ml-1">
+                                    {{ review.ratings.details }}
+                                </span>
+                            </div>
+                            <p class="font-normal text-[14px] text-text-100 dark:text-text-100-dark leading-normal">
+                                {{ review.comments.details }}
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Comentario general -->
+                <p class="font-normal text-[14px] text-text-100 dark:text-text-100-dark leading-normal">
+                    {{ review.generalComment }}
+                </p>
+
+                <!-- Imágenes de la reseña -->
+                @if (review.images && review.images.length > 0) {
+                <div class="flex gap-[14px] items-start">
+                    @for (image of review.images.slice(0, 3); track image) {
+                    <div class="bg-bg-200 dark:bg-bg-200-dark h-[89px] w-[89px] rounded-[7px] overflow-hidden">
+                        <img [src]="image" alt="Review image" class="w-full h-full object-cover" />
+                    </div>
+                    }
+                </div>
+                }
+
+            </div>
+
+        </div>
+        }
+
+        <!-- Botón "Mostrar más" -->
+        @if (hasMoreReviews()) {
+        <button type="button" (click)="loadMoreReviews()"
+            class="bg-bg-200 dark:bg-bg-200-dark hover:bg-bg-300 dark:hover:bg-bg-300-dark px-[28px] py-[14px] rounded-[14px] self-center transition-colors cursor-pointer">
+            <span class="font-normal text-[14px] text-text-100 dark:text-text-100-dark leading-normal">
+                Mostrar más reseñas
+            </span>
+        </button>
+        }
+
+        <!-- Mensaje cuando no hay reseñas -->
+        @if (reviews().length === 0) {
+        <div class="flex items-center justify-center w-full h-[210px]">
+            <p class="font-normal text-[14px] text-text-200 dark:text-text-200-dark leading-normal">
+                No hay reseñas disponibles para este producto
+            </p>
+        </div>
+        }
+
+    </div>
+    }
+
+</div>

@@ -14,4 +14,5 @@ export class Header {
     private authService = inject(UserAuthentication);
 
     isAuthenticated = computed(() => this.authService.getIsLoggedInSignal());
+    isAdmin = computed(() => this.authService.getIsAdminSignal());
 }

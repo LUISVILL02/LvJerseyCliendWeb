@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { adminGuard } from '@app/featured/auth/guards/admin-guard';
 
 export const accountRoutes: Routes = [
   {
@@ -30,6 +31,18 @@ export const accountRoutes: Routes = [
         path: 'reviews',
         loadComponent: () =>
           import('./pages/reviews/reviews').then((m) => m.ReviewsPage),
+      },
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./pages/dashboard/dashboard').then((m) => m.DashboardPage),
+        canMatch: [adminGuard],
+      },
+      {
+        path: 'jerseys/create',
+        loadComponent: () =>
+          import('./pages/create-jersey/create-jersey').then((m) => m.CreateJerseyPage),
+        canMatch: [adminGuard],
       },
     ],
   },

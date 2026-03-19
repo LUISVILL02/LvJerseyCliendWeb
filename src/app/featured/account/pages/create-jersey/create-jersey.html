@@ -1,0 +1,291 @@
+<div class="flex flex-col gap-[20px]">
+  <!-- Header -->
+  <h1 class="text-[32px] font-medium text-text-200 dark:text-text-200-dark">
+    Añadir nueva camiseta
+  </h1>
+
+  <!-- Mensajes de estado -->
+  @if (successMessage()) {
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-[5px]">
+      {{ successMessage() }}
+    </div>
+  }
+
+  @if (errorMessage()) {
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-[5px]">
+      {{ errorMessage() }}
+    </div>
+  }
+
+  <!-- Formulario en 2 columnas -->
+  <form [formGroup]="jerseyForm" class="grid grid-cols-1 lg:grid-cols-2 gap-[10px]">
+    <!-- COLUMNA IZQUIERDA -->
+    <div class="flex flex-col gap-[20px]">
+      <!-- Sección: Información general -->
+      <section class="bg-bg-100 dark:bg-bg-100-dark border border-bg-200 dark:border-bg-300-dark rounded-[5px] p-[20px] flex flex-col gap-[20px]">
+        <h2 class="text-[20px] font-normal text-text-100 dark:text-text-100-dark">
+          Información general
+        </h2>
+
+        <!-- Nombre -->
+        <div class="flex flex-col gap-[10px]">
+          <label class="text-[16px] font-light text-text-200 dark:text-text-200-dark">
+            Nombre
+          </label>
+          <app-input
+            formControlName="name"
+            type="text"
+            placeHolder="Camiseta de liverpool"
+            inputWidth="w-full"
+            [error]="getFieldError('name')"
+          />
+        </div>
+
+        <!-- Nombre del club -->
+        <div class="flex flex-col gap-[10px]">
+          <label class="text-[16px] font-light text-text-200 dark:text-text-200-dark">
+            Nombre del club
+          </label>
+          <app-input
+            formControlName="clubName"
+            type="text"
+            placeHolder="Liverpool"
+            inputWidth="w-full"
+            [error]="getFieldError('clubName')"
+          />
+        </div>
+
+        <!-- Tipo y Sexo -->
+        <div class="flex flex-col sm:flex-row justify-between gap-[20px]">
+          <!-- Tipo -->
+          <div class="flex flex-col gap-[10px] flex-1">
+            <label class="text-[16px] font-light text-text-200 dark:text-text-200-dark">
+              Tipo
+            </label>
+            <app-toggle-button-group
+              formControlName="type"
+              [options]="typeOptions"
+            />
+          </div>
+
+          <!-- Sexo -->
+          <div class="flex flex-col gap-[10px]">
+            <label class="text-[16px] font-light text-text-200 dark:text-text-200-dark">
+              Sexo
+            </label>
+            <app-radio-group
+              formControlName="gender"
+              [options]="genderOptions"
+              name="gender"
+            />
+          </div>
+        </div>
+
+        <!-- Talla -->
+        <div class="flex flex-col gap-[10px]">
+          <label class="text-[16px] font-light text-text-200 dark:text-text-200-dark">
+            Talla
+          </label>
+          <app-toggle-button-group
+            formControlName="sizes"
+            [options]="sizeOptions"
+            [multiple]="true"
+          />
+        </div>
+      </section>
+
+      <!-- Sección: Información adicional -->
+      <section class="bg-bg-100 dark:bg-bg-100-dark border border-bg-200 dark:border-bg-300-dark rounded-[5px] p-[20px] flex flex-col gap-[20px]">
+        <h2 class="text-[20px] font-normal text-text-100 dark:text-text-100-dark">
+          Información adicional
+        </h2>
+
+        <div class="flex flex-col sm:flex-row gap-[20px]">
+          <!-- Peso -->
+          <div class="flex flex-col gap-[10px] flex-1">
+            <label class="text-[16px] font-light text-text-200 dark:text-text-200-dark">
+              Peso
+            </label>
+            <app-input
+              formControlName="weight"
+              type="text"
+              placeHolder="0,59kg"
+              inputWidth="w-full"
+              [error]="getFieldError('weight')"
+            />
+          </div>
+
+          <!-- Marca -->
+          <div class="flex flex-col gap-[10px] flex-1">
+            <label class="text-[16px] font-light text-text-200 dark:text-text-200-dark">
+              Marca
+            </label>
+            <app-input
+              formControlName="brand"
+              type="text"
+              placeHolder="Nike"
+              inputWidth="w-full"
+              [error]="getFieldError('brand')"
+            />
+          </div>
+
+          <!-- Temporada -->
+          <div class="flex flex-col gap-[10px] flex-1">
+            <label class="text-[16px] font-light text-text-200 dark:text-text-200-dark">
+              Temporada
+            </label>
+            <app-input
+              formControlName="season"
+              type="text"
+              placeHolder="2024/2025"
+              inputWidth="w-full"
+              [error]="getFieldError('season')"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección: Precio y stock -->
+      <section class="bg-bg-100 dark:bg-bg-100-dark border border-bg-200 dark:border-bg-300-dark rounded-[5px] p-[20px] flex flex-col gap-[20px]">
+        <h2 class="text-[20px] font-normal text-text-100 dark:text-text-100-dark">
+          Precio y stock
+        </h2>
+
+        <div class="flex flex-col sm:flex-row gap-[20px]">
+          <!-- Precio -->
+          <div class="flex flex-col gap-[10px] flex-1">
+            <label class="text-[16px] font-light text-text-200 dark:text-text-200-dark">
+              Precio
+            </label>
+            <app-input
+              formControlName="price"
+              type="number"
+              placeHolder="$100.000"
+              inputWidth="w-full"
+              [error]="getFieldError('price')"
+            />
+          </div>
+
+          <!-- Stock -->
+          <div class="flex flex-col gap-[10px] flex-1">
+            <label class="text-[16px] font-light text-text-200 dark:text-text-200-dark">
+              Stock
+            </label>
+            <app-input
+              formControlName="stock"
+              type="number"
+              placeHolder="10"
+              inputWidth="w-full"
+              [error]="getFieldError('stock')"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección: Parches -->
+      <section class="bg-bg-100 dark:bg-bg-100-dark border border-bg-200 dark:border-bg-300-dark rounded-[5px] p-[20px] flex flex-col gap-[20px]">
+        <h2 class="text-[20px] font-normal text-text-100 dark:text-text-100-dark">
+          Parches
+        </h2>
+
+        <app-image-uploader
+          [maxImages]="3"
+          [showPreview]="false"
+          (imagesUpdated)="onPatchImagesChange($event)"
+        />
+      </section>
+    </div>
+
+    <!-- COLUMNA DERECHA -->
+    <div class="flex flex-col gap-[10px]">
+      <!-- Sección: Cargar imágenes -->
+      <section class="bg-bg-100 dark:bg-bg-100-dark border border-bg-200 dark:border-bg-300-dark rounded-[5px] p-[20px] flex flex-col gap-[20px]">
+        <h2 class="text-[20px] font-normal text-text-100 dark:text-text-100-dark">
+          Cargar imágenes - videos
+        </h2>
+
+        <app-image-uploader
+          [maxImages]="4"
+          [showPreview]="true"
+          previewSize="large"
+          (imagesUpdated)="onProductImagesChange($event)"
+        />
+      </section>
+
+      <!-- Sección: Categoría -->
+      <section class="bg-bg-100 dark:bg-bg-100-dark border border-bg-200 dark:border-bg-300-dark rounded-[5px] p-[20px] flex flex-col gap-[20px]">
+        <h2 class="text-[20px] font-normal text-text-100 dark:text-text-100-dark">
+          Categoría
+        </h2>
+
+        <!-- Lista de categorías seleccionadas -->
+        @if (selectedCategories().length > 0) {
+          <div class="flex flex-wrap gap-[10px]">
+            @for (cat of selectedCategories(); track cat) {
+              <div class="flex items-center gap-[8px] bg-primary-100 dark:bg-primary-100-dark px-[12px] py-[6px] rounded-[20px]">
+                <span class="text-[14px] text-text-100 dark:text-text-100-dark">{{ cat }}</span>
+                <button 
+                  type="button"
+                  (click)="removeCategory(cat)"
+                  class="text-text-200 dark:text-text-200-dark hover:text-red-500 dark:hover:text-red-400"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-[16px] w-[16px]" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                  </svg>
+                </button>
+              </div>
+            }
+          </div>
+        }
+
+        <!-- Select de categoría + botón -->
+        <div class="flex gap-[10px]">
+          <div class="flex-1">
+            <app-select-dropdown
+              formControlName="category"
+              [options]="categoryOptions"
+              placeholder="Seleccionar categoría..."
+            />
+          </div>
+          <app-button-generic
+            textContent="+"
+            height="h-[51px]"
+            width="w-[51px]"
+            [disabled]="!jerseyForm.get('category')?.value"
+            (onClick)="addCategoryFromDropdown()"
+          />
+        </div>
+
+        <!-- Nombre de categoría personalizada + botón -->
+        <div class="flex gap-[10px]">
+          <div class="flex-1">
+            <app-input
+              formControlName="categoryName"
+              type="text"
+              placeHolder="Nombre de categoría"
+              inputWidth="w-full"
+            />
+          </div>
+          <app-button-generic
+            textContent="+"
+            height="h-[51px]"
+            width="w-[51px]"
+            [disabled]="!jerseyForm.get('categoryName')?.value?.trim()"
+            (onClick)="addCategoryFromInput()"
+          />
+        </div>
+      </section>
+
+      <!-- Botón de submit -->
+      <section class="mt-[20px]">
+        <app-button-generic
+          textContent="Crear camiseta"
+          height="h-[54px]"
+          [loading]="loading()"
+          [disabled]="loading()"
+          (onClick)="onSubmit()"
+        />
+      </section>
+    </div>
+  </form>
+</div>

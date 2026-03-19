@@ -13,6 +13,6 @@ export const decodeUserTokenAdapter = (userDecode: UserDecodeResponse): UserDeco
         idUser: userDecode.idUser,
         email: userDecode.email,
         nickname: userDecode.nickname,
-        rol: userDecode.rol
+        role: userDecode.role
     }
 }

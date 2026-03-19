@@ -1,15 +1,15 @@
-export type role = 'ADMIN' | 'USER';
+export type Role = 'ADMIN' | 'USER';
 
 export interface UserDecode {
     idUser: number;
     email: string;
     nickname: string,
-    rol: role;
+    role: Role;
 }
 
 export interface UserDecodeResponse {
     idUser: number;
     email: string;
     nickname: string,
-    rol: role;
+    role: Role;
 }

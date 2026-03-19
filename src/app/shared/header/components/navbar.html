@@ -1,8 +1,10 @@
 <nav>
     <ul class="flex gap-[50px] text-text-100 dark:text-accent-200-dark text-[26px]">
         @if (isAuthneticated()) {
-            <li><fa-icon [icon]="faHeart"/></li>
-            <li><fa-icon [icon]="faCartShopping"/></li>
+            @if(!isAdmin()) {
+                <li><fa-icon [icon]="faHeart"/></li>
+                <li><fa-icon [icon]="faCartShopping"/></li>
+            }
             <li [routerLink]="'/' + commonRoutes.ACCOUNT.BASE" class="cursor-pointer"><fa-icon [icon]="faUser"/></li>
         }@else{
             <div class="flex items-center">

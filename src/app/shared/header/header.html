@@ -3,5 +3,5 @@
 >
     <div class="size-[50px] rounded-full dark:bg-accent-100-dark" [class]="!isAuthenticated() ? 'bg-bg-300' : 'bg-bg-100'"></div>
     <app-search/>
-    <app-navbar [isAuthneticated]="isAuthenticated()"/>
+    <app-navbar [isAuthneticated]="isAuthenticated()" [isAdmin]="isAdmin()" />
 </header>

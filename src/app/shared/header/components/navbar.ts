@@ -22,6 +22,7 @@ export class Navbar {
     themeService = inject(ThemeService);
 
     isAuthneticated = input<boolean>(false);
+    isAdmin = input<boolean>(false);
 
     commonRoutes = commonRoutes;
 }

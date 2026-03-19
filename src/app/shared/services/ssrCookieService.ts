@@ -12,7 +12,6 @@ export class SsrCookieService {
 
     getCookie(name: string): string {
         if (isPlatformBrowser(this.platformId)) {
-            console.log('Cookie from browser:', this.#cookieService.get(name));
             return this.#cookieService.get(name);
         }
         const raw = this.request?.headers.get('cookie');

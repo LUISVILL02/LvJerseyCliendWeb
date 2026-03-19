@@ -1,0 +1,53 @@
+<div class="relative w-full">
+  <!-- Trigger -->
+  <button
+    type="button"
+    (click)="toggle()"
+    class="w-full h-[54px] px-[10px] py-[14px] rounded-[10px] bg-bg-200 dark:bg-bg-100-dark border border-bg-200 dark:border-bg-300-dark flex items-center justify-between cursor-pointer hover:border-accent-100 dark:hover:border-accent-100-dark transition-colors"
+  >
+    <span
+      class="text-[13px] font-light"
+      [class]="
+        selectedOption()
+          ? 'text-accent-200 dark:text-accent-200-dark'
+          : 'text-accent-100 dark:text-accent-100-dark'
+      "
+    >
+      {{ getDisplayValue() }}
+    </span>
+    <svg
+      class="size-[20px] transition-transform"
+      [class.rotate-180]="isOpen()"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M5 7.5L10 12.5L15 7.5"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  </button>
+
+  <!-- Dropdown -->
+  @if (isOpen()) {
+    <div
+      class="absolute z-50 w-full mt-[4px] py-[8px] rounded-[10px] bg-bg-100 dark:bg-bg-200-dark border border-bg-200 dark:border-bg-300-dark shadow-lg max-h-[200px] overflow-y-auto"
+    >
+      @for (option of options(); track option.value) {
+        <button
+          type="button"
+          (click)="select(option)"
+          class="w-full px-[10px] py-[10px] text-left text-[13px] font-light text-text-200 dark:text-text-200-dark hover:bg-bg-200 dark:hover:bg-bg-300-dark transition-colors cursor-pointer"
+          [class.bg-primary-600]="selectedOption()?.value === option.value"
+          [class.dark:bg-primary-300]="selectedOption()?.value === option.value"
+        >
+          {{ option.label }}
+        </button>
+      }
+    </div>
+  }
+</div>

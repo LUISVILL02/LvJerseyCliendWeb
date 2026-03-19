@@ -1,0 +1,66 @@
+<div class="flex flex-col gap-[20px]">
+  <!-- Preview grande (opcional) -->
+  @if (showPreview() && previewSize() === 'large') {
+    <div
+      class="w-full h-[298px] rounded-[5px] bg-bg-300 dark:bg-bg-300-dark flex items-center justify-center overflow-hidden"
+    >
+      @if (getSelectedImage(); as selectedImg) {
+        <img
+          [src]="selectedImg.url"
+          alt="Preview"
+          class="w-full h-full object-cover"
+        />
+      } @else {
+        <span class="text-accent-100 dark:text-accent-100-dark text-[14px]">
+          Sin imagen seleccionada
+        </span>
+      }
+    </div>
+  }
+
+  <!-- Grid de miniaturas -->
+  <div class="flex gap-[20px] flex-wrap">
+    <!-- Botón de añadir -->
+    @if (canAddMore()) {
+      <label
+        class="size-[80px] border border-dashed border-bg-300 dark:border-bg-300-dark flex items-center justify-center cursor-pointer hover:bg-bg-200 dark:hover:bg-bg-300-dark transition-colors"
+      >
+        <input
+          type="file"
+          [accept]="accept()"
+          (change)="onFileSelect($event)"
+          class="hidden"
+          multiple
+        />
+        <app-plus-icon [size]="15" />
+      </label>
+    }
+
+    <!-- Imágenes cargadas -->
+    @for (image of images(); track $index) {
+      <div
+        class="size-[80px] relative cursor-pointer group"
+        (click)="selectImage($index)"
+        [class]="
+          selectedIndex() === $index
+            ? 'border-2 border-accent-200 dark:border-accent-200-dark'
+            : ''
+        "
+      >
+        <img
+          [src]="image.url"
+          alt="Imagen {{ $index + 1 }}"
+          class="w-full h-full object-cover bg-bg-300 dark:bg-bg-300-dark"
+        />
+        <!-- Botón de eliminar -->
+        <button
+          type="button"
+          (click)="removeImage($index, $event)"
+          class="absolute -top-[8px] -right-[8px] size-[20px] bg-red-500 text-white rounded-full flex items-center justify-center text-[12px] opacity-0 group-hover:opacity-100 transition-opacity"
+        >
+          &times;
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<div class="flex flex-wrap gap-[10px] items-center">
+  @for (option of options(); track option.value) {
+    <label
+      class="flex items-center gap-[5px] cursor-pointer"
+      (click)="select(option.value)"
+    >
+      <span
+        class="size-[24px] rounded-full border-2 flex items-center justify-center transition-colors"
+        [class]="
+          isSelected(option.value)
+            ? 'border-text-100 dark:border-text-100-dark'
+            : 'border-accent-100 dark:border-accent-100-dark'
+        "
+      >
+        @if (isSelected(option.value)) {
+          <span class="size-[12px] rounded-full bg-text-100 dark:bg-text-100-dark"></span>
+        }
+      </span>
+      <span class="text-[12px] font-light text-text-200 dark:text-text-200-dark">
+        {{ option.label }}
+      </span>
+    </label>
+  }
+</div>

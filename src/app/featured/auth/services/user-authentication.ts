@@ -1,50 +1,52 @@
-import { computed, inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { UserDecode } from '../model/userDecode';
 import { decodeUserTokenAdapter } from '../adapters/authAdapter';
 import { decodeUserToken } from '../utilities/decodeToken';
-import { isPlatformBrowser } from '@angular/common';
+import { SsrCookieService } from '@app/shared/services/ssrCookieService';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserAuthentication {
+  private ssrCookieService = inject(SsrCookieService);
 
-  private platformId = inject(PLATFORM_ID);
+  // Usar cookies que funcionan tanto en SSR como en el browser
+  private tokenSignal = signal<string>(this.ssrCookieService.getCookie('tokenAccessLvJersey'));
+  private refreshTokenSignal = signal<string>(
+    this.ssrCookieService.getCookie('refreshTokenAccessLvJersey')
+  );
 
   private userSignal = computed<UserDecode>(() => {
     const token = this.tokenSignal();
     if (token) return decodeUserTokenAdapter(decodeUserToken(token));
     return {} as UserDecode;
   });
-  private tokenSignal = signal<string>(isPlatformBrowser(this.platformId) ? localStorage.getItem('tokenAccessLvJersey') || '' : '');
-  private refreshTokeSignal = signal<string>(isPlatformBrowser(this.platformId) ? localStorage.getItem('refreshTokenAccessLvJersey') || '' : '');
 
   private isLoggedInSignal = computed<boolean>(() => !!this.tokenSignal());
-  private isAdminSignal = computed<boolean>(() => this.userSignal()?.rol === 'ADMIN');
+  private isAdminSignal = computed<boolean>(() => this.userSignal()?.role === 'ADMIN');
 
-
-  setTokenSignal = (token: string) => this.tokenSignal.set(token)
-  setRefreshTokeSignal = (refreshToken: string) => this.refreshTokeSignal.set(refreshToken)
+  setTokenSignal = (token: string) => this.tokenSignal.set(token);
+  setRefreshTokenSignal = (refreshToken: string) => this.refreshTokenSignal.set(refreshToken);
 
   setLocalStorageTokens = (accessToken: string, refreshToken: string) => {
-    if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem('tokenAccessLvJersey', accessToken);
-      localStorage.setItem('refreshTokenAccessLvJersey', refreshToken);
-    }
-  }
+    // Guardar en cookies
+    this.ssrCookieService.setCookie('tokenAccessLvJersey', accessToken);
+    this.ssrCookieService.setCookie('refreshTokenAccessLvJersey', refreshToken);
+    // Actualizar los signals
+    this.tokenSignal.set(accessToken);
+    this.refreshTokenSignal.set(refreshToken);
+  };
 
   clearTokens = () => {
     this.tokenSignal.set('');
-    this.refreshTokeSignal.set('');
-    if (isPlatformBrowser(this.platformId)) {
-      localStorage.removeItem('tokenAccessLvJersey');
-      localStorage.removeItem('refreshTokenAccessLvJersey');
-    }
-  }
+    this.refreshTokenSignal.set('');
+    this.ssrCookieService.removeCookie('tokenAccessLvJersey');
+    this.ssrCookieService.removeCookie('refreshTokenAccessLvJersey');
+  };
 
   getUserSignal = () => this.userSignal();
   getTokenSignal = () => this.tokenSignal();
-  getRefreshTokeSignal = () => this.refreshTokeSignal();
+  getRefreshTokenSignal = () => this.refreshTokenSignal();
   getIsLoggedInSignal = () => this.isLoggedInSignal();
   getIsAdminSignal = () => this.isAdminSignal();
 }

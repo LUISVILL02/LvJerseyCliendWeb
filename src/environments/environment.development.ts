@@ -4,7 +4,7 @@ export const environment = {
     appName: 'LVJersey',
     version: '1.0.0',
     enableDebug: true,
-    googleClientId: '',
-    googleClientSecret: '',
+    googleClientId: '', // REMOVED SENSITIVE INFO
+    googleClientSecret: '', // REMOVED SENSITIVE INFO
     facebookAppId: '',
 };

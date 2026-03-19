@@ -48,3 +48,4 @@ Thumbs.db
 # Environment files personales
 environment.local.ts
 environment.*.local.ts
+src/environments/environment.development.ts

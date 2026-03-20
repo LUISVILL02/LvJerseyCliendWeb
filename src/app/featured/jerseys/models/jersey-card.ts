@@ -14,6 +14,23 @@ export interface LeagueWithJerseys {
   jerseys: JerseyCard[]; // Lista de 10 jerseys
 }
 
+//Servidor
+export interface JerseyApiResponse {
+  id: number;              // Identificador único
+  imageUrl: string;        // URL de la imagen
+  name: string;            // Camiseta Local Real Madrid 23/24
+  typeDescription: string; // Opcional: Versión jugador, fanático, retro
+  price: number;           // 100000 (mejor en número que string)
+  rating: number;          // 4.1
+  isFavorite: boolean; 
+}
+
+export interface LeagueWithJerseysApiResponse {
+  league: string;        // Nombre de la liga (La Liga, Premier League, Serie A)
+  country: string; 
+  jerseys: JerseyApiResponse[];
+}
+
 // =========================
 // LA LIGA (ESPAÑA)
 // =========================

@@ -1,22 +1,42 @@
 <section
     class="flex flex-col gap-[40px] px-[20px] lg:px-[100px] 3xl:px-[300px] pt-[20px] lg:pt-[70px] pb-[30px] bg-bg-100 dark:bg-bg-100-dark min-h-screen">
+    @if (errorMessage()) {
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-[5px]">
+        {{ errorMessage() }}
+        </div>
+    }
     <!-- Sección principal: Imágenes + Info del producto -->
     <div class="flex flex-col md:flex-row gap-[40px] items-start w-full">
 
         <!-- Columna izquierda: Imágenes -->
         <div class="flex flex-col gap-[40px] w-full md:items-start md:w-1/2"> <!-- Imagen principal -->
             <div class="h-[500px] w-full">
-                <div class=" bg-bg-300 dark:bg-bg-300-dark h-[478px] left-0 top-0 w-full rounded-[10px]"></div>
+                @defer (when jerseyDetailSignal().images.length > 0) {
+                    <img [src]="jerseyDetailSignal().images[selectedImageIndex()]" alt="Imagen de la camiseta"
+                    class="h-full w-full object-contain rounded-[10px]" />
+                }@placeholder {
+                    <div class=" bg-bg-300 dark:bg-bg-300-dark h-[478px] left-0 top-0 w-full rounded-[10px]"></div>
+                }
             </div>
             <!-- Miniaturas -->
             <div class="h-[89px] w-full">
                 <div class="flex gap-[20px] items-start h-[89px] w-full">
-                    @for (image of jerseyDetailSignal().images.slice(0, 3); track $index) {
-                    <button type="button" (click)="selectImage($index)"
-                        class="flex-1 bg-bg-300 dark:bg-bg-300-dark h-[89px] min-w-0 rounded-[10px] hover:opacity-80 transition-opacity cursor-pointer"
-                        [class.ring-2]="selectedImageIndex() === $index"
-                        [class.ring-primary-300]="selectedImageIndex() === $index">
-                    </button>
+                    @for (image of jerseyDetailSignal().images; track $index) {
+                        <div class="absolute h-[89px] w-[89px]">
+                            @defer (when image) {
+                                <img (click)="selectImage($index)" [src]="image" alt="otra imagen" 
+                                    class="flex-1 h-[89px] min-w-0 rounded-[10px] hover:opacity-80 transition-opacity cursor-pointer"
+                                    [class.ring-2]="selectedImageIndex() === $index"
+                                    [class.ring-primary-300]="selectedImageIndex() === $index"
+                                />
+                            }@placeholder{
+                                <button type="button" 
+                                    class="flex-1 bg-bg-300 dark:bg-bg-300-dark h-[89px] min-w-0 rounded-[10px] hover:opacity-80 transition-opacity cursor-pointer"
+                                    [class.ring-2]="selectedImageIndex() === $index"
+                                    [class.ring-primary-300]="selectedImageIndex() === $index">
+                                </button>
+                            }
+                        </div>
                     }
                 </div>
             </div>
@@ -87,12 +107,19 @@
                     Parches
                 </p>
                 <div class="flex gap-[21px] pl-[5px]">
-                    @for (patch of jerseyDetailSignal().patches.slice(0, 4); track patch.id) {
-                    <button type="button" (click)="togglePatch(patch.id)"
-                        class="bg-bg-300 dark:bg-bg-300-dark h-[50px] w-[80px] rounded-[8px] hover:opacity-80 transition-opacity flex items-center justify-center cursor-pointer"
-                        [class.ring-1]="selectedPatches().includes(patch.id)"
-                        [class.ring-primary-200]="selectedPatches().includes(patch.id)">
-                    </button>
+                    @for (patch of jerseyDetailSignal().patches; track patch.id) {
+                        @defer (when patch.imageUrl) {
+                            <img (click)="togglePatch(patch.id)" [src]="patch.imageUrl" alt="parche"
+                                class="bg-bg-300 dark:bg-bg-300-dark h-[50px] w-[80px] rounded-[8px] hover:opacity-80 transition-opacity cursor-pointer"
+                                [class.ring-1]="selectedPatches().includes(patch.id)"
+                                [class.ring-primary-200]="selectedPatches().includes(patch.id)" />
+                        }@placeholder {
+                            <button type="button" (click)="togglePatch(patch.id)"
+                                class="bg-bg-300 dark:bg-bg-300-dark h-[50px] w-[80px] rounded-[8px] hover:opacity-80 transition-opacity flex items-center justify-center cursor-pointer"
+                                [class.ring-1]="selectedPatches().includes(patch.id)"
+                                [class.ring-primary-200]="selectedPatches().includes(patch.id)">
+                            </button>
+                        }
                     }
                 </div>
             </div>

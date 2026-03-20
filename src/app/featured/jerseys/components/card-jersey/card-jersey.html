@@ -1,4 +1,4 @@
-<div class="flex flex-col lg:w-[360px] xl:w-[320px] 2xl:w-[370px] h-[352px] bg-bg-100 dark:bg-bg-100-dark rounded-[7px] shadow-sm transition-all duration-300 cursor-pointer hover:scale-101 hover:shadow-md">
+<div [routerLink]="['/', commonRoutes.JERSEYS.BASE, commonRoutes.JERSEYS.DETAILS, jersey().id]" class="flex flex-col lg:w-[360px] xl:w-[320px] 2xl:w-[370px] h-[352px] bg-bg-100 dark:bg-bg-100-dark rounded-[7px] shadow-sm transition-all duration-300 cursor-pointer hover:scale-101 hover:shadow-md">
     <div class="flex w-full h-[229px] rounded-t-[7px]">
         @defer (when jersey().imageUrl !== "") {
             <img [src]="jersey().imageUrl" alt="Imagen de la camiseta" class="max-h-full max-w-full object-contain rounded-t-[7px]"/>

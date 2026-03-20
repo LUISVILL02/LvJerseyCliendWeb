@@ -1,8 +1,9 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { Category, Leagues } from '@src/app/featured/categories/models/category';
 import { CategoryList } from "@src/app/featured/categories/components/category-list/category-list";
 import { allLeagues, LeagueWithJerseys } from '@src/app/featured/jerseys/models/jersey-card';
 import { ListJerseys } from "@src/app/featured/jerseys/components/list-jerseys/list-jerseys";
+import { GetHomeJerseys } from '../../services/get-home-jerseys';
 
 @Component({
   selector: 'app-home-page',
@@ -10,6 +11,8 @@ import { ListJerseys } from "@src/app/featured/jerseys/components/list-jerseys/l
   templateUrl: './home-page.html',
 })
 export class HomePage {
+  jerseyHomeApiService = inject(GetHomeJerseys);
+
  categories = signal<Category[]> ([
     { id: 1, name: 'Premier league - Inglaterra' },
     { id: 2, name: 'Serie A - Italia' },
@@ -54,7 +57,11 @@ export class HomePage {
       },
   ]);
 
-  jerseys = signal<LeagueWithJerseys[]>(allLeagues)
+  constructor(){
+    this.jerseyHomeApiService.getJerseyHomeApi();
+  }
+
+  jerseys = computed<LeagueWithJerseys[]>(() => this.jerseyHomeApiService.jerseysHome());
 
   getJerseysByLeague(leagueName: string) {
     const league = this.jerseys().find(l => l.country === leagueName);

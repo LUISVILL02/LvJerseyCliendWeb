@@ -2,10 +2,12 @@ import { Component, input } from '@angular/core';
 import { JerseyCard } from '../../models/jersey-card';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { RouterLink } from '@angular/router';
+import { commonRoutes } from '@src/app/app.routes';
 
 @Component({
   selector: 'app-card-jersey',
-  imports: [FaIconComponent],
+  imports: [FaIconComponent, RouterLink],
   templateUrl: './card-jersey.html',
 })
 export class CardJersey {
@@ -20,5 +22,7 @@ export class CardJersey {
     price: 0,           
     rating: 0,          
     isFavorite: false
-  })
+  });
+
+  commonRoutes = commonRoutes;
 }
